@@ -84,7 +84,7 @@ export default function UserHomePage() {
       <section className="mb-12 community" >
         <h2 className="text-2xl font-semibold text-green-800 mb-3">Join a Thriving Community</h2>
         <p className="text-gray-700 leading-relaxed">
-          From gardeners trading tools to parents passing on toys, EcoSwap has something for everyone. Our members love sharing tips,<br></br> swapping stories, and organizing local “swap meets” through the app. The more you participate—by listing, requesting, or simply<br></br> chatting—the stronger our circular‑economy network becomes.
+          From gardeners trading tools to parents passing on toys, EcoSwap has something for everyone. Our members<br></br> love sharing tips, swapping stories, and organizing local “swap meets” through the app. The more you participate<br></br>—by listing, requesting, or simply chatting—the stronger our circular‑economy network becomes.
         </p>
         <p className="text-gray-700 leading-relaxed mt-2">
           Every item you share is an act of environmental stewardship that ripples out to make a big difference.

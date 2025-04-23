@@ -102,20 +102,20 @@
 .user-homepage-text-section{
     display: flex;
 }
+.user-homepage-text-section1{
+    margin-top:1rem ;
+}
 .user-homepage-text-section2-img{
     width: 30rem;
-    height: 35rem;
+    height: 30rem;
     border-radius: 15px;
     margin-left: 1rem;
 }
 .community{
     position: absolute;
-    bottom: -59rem;
+    bottom: -81rem;
 }
-.today{
-    position: absolute;
-    bottom: -72rem;
-}
+
 .userhomepage-image18{
     height: 475px;
     width: 40rem;
