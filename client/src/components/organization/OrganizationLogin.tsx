@@ -24,7 +24,7 @@ console.log(res);
         localStorage.setItem('orgid', res.data.data._id);     // Optional
 
         // Navigate to dashboard or some page
-        navigate('/organization/addproduct');
+        navigate('/organization/dashboard');
       } else {
         setErrorMsg(res.data.message || 'Login failed');
       }
