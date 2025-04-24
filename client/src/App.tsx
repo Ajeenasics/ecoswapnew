@@ -23,6 +23,9 @@ import UserHomePage from './components/User/UserHomePage';
 import OrganisationAddProduct from './components/organization/OrganizationAddproduct';
 import AdminSidebar from './components/admin/AdminSidebar';
 import OrganizationSidebar from './components/organization/OrganizationSidebar';
+import OrganizationProfileEdit from './components/organization/OrganizationProfileEdit';
+import OrganizationProfile from './components/organization/OrganizationProfile';
+import Pnf from './pages/Pnf';
 function App() {
   const url = 'http://localhost:8000';
 
@@ -53,7 +56,9 @@ function App() {
 
           <Route path='/organization/dashboard' element={[<OrganizationHome />, <Footer />]} />
           <Route path="/organization/addproduct" element={[<OrganisationAddProduct />, <Footer />]} />
-
+          <Route path='/organization/profile' element={[<OrganizationProfile url={url} />, <Footer />]} />
+          <Route path="/organization/profileedit" element={[<OrganizationProfileEdit url={url} />, <Footer />]} />
+          <Route path="/*" element={<Pnf/>} />
       </Routes>
     </Router>
   );

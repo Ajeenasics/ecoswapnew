@@ -16,7 +16,7 @@ route.post('/organization/register', orgcontroller.uploadimg, orgcontroller.save
 route.post('/organization/login', orgcontroller.loginvalidateorg);
 route.get('/vieworganization/:id', orgcontroller.viewOneOrganization);
 route.get('/viewallorganization', orgcontroller.viewAllOrganizations);
-route.put('/updateorganization/:id', orgcontroller.updateOrganizationDetails);
+route.put('/updateorganization/:id',orgcontroller.uploadimg,  orgcontroller.updateOrganizationDetails);
 route.post('/organization/forgotpassword', orgcontroller.forgotPassword);
 
 

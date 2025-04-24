@@ -16,7 +16,7 @@ export default function OrganizationSidebar() {
 
   const menuItems = [
     { icon: LayoutDashboard, label: 'Dashboard', path: '/organization/dashboard' },
-    { icon: Package, label: 'Items', path: '/organization/items' },
+    { icon: Package, label: 'Items', path: '/organization/addProduct' },
     { icon: Calendar, label: 'Events', path: '/organization/events' },
     { icon: Users, label: 'Community', path: '/organization/community' },
     { icon: MessageSquare, label: 'Messages', path: '/organization/messages' },
