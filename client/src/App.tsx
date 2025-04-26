@@ -21,8 +21,19 @@ import ForgetPassword from './components/User/ForgetPassword';
 import OrganaizationForgetPassword from "./components/organization/OrganaizationForgetPassword"
 import UserHomePage from './components/User/UserHomePage';
 import OrganisationAddProduct from './components/organization/OrganizationAddproduct';
+import Additem from "./components/User/Additem"
+
 import AdminSidebar from './components/admin/AdminSidebar';
 import OrganizationSidebar from './components/organization/OrganizationSidebar';
+import Category from './components/User/Category';
+import Wishlist from './components/User/Wishlist';
+import Viewitem from './components/User/Viewitem';
+import Myorder from './components/User/myorder';
+import RequestsSwap from './components/User/RequestsSwap';
+import RequestsExchange from './components/User/RequestsExchange';
+import RequestsBorrow from './components/User/RequestsBorrow';
+import Inbox from './components/User/Inbox';
+import Complaints from './components/User/Complaints';
 function App() {
   const url = 'http://localhost:8000';
 
@@ -38,7 +49,16 @@ function App() {
         <Route path="/user/homepage" element={[<UserNavbar />, <UserHomePage />, <Footer />]} />
         <Route path="/user/profile" element={[<UserNavbar />, <Profile url={url} />, <Footer />]} />
         <Route path="/user/profileedit" element={[<UserNavbar />, <ProfileEdit url={url}/>, <Footer />]} />
-        <Route path="/user/products" element={[<UserNavbar />, <ProductList />, <Footer />]} />
+        <Route path="/user/category/category" element={[<UserNavbar />,<Category/>, <Footer />]} />
+        <Route path="/user/category/additem" element={[<UserNavbar />,<Additem/>]} />
+        <Route path="/user/category/wishlist" element={[<UserNavbar />,<Wishlist/>]} />
+        <Route path="/user/category/viewitem" element={[<UserNavbar />,<Viewitem/>]} />
+        <Route path="/user/myorder" element={[<UserNavbar />,<Myorder/>]} />
+        <Route path="/user/requests/swap" element={[<UserNavbar />,<RequestsSwap/>]} />
+        <Route path="/user/requests/exchange" element={[<UserNavbar />,<RequestsExchange/>]} />
+        <Route path="/user/requests/borrow" element={[<UserNavbar />,<RequestsBorrow/>]} />
+        <Route path="/user/inbox" element={[<UserNavbar />,<Inbox/>]} />
+        <Route path="/user/complaints" element={[<UserNavbar />,<Complaints/>]} />
 
 
         <Route path="/admin/login" element={[<Navbar />, <AdminLogin />, <Footer />]} />
