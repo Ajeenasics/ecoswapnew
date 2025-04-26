@@ -91,9 +91,26 @@ const viewOneOrganization = async (req, res) => {
 
 // Update organization details by ID
 const updateOrganizationDetails = async (req, res) => {
+    console.log(req.body);
+    
     try {
-        const updatedData = req.body;
+        const {
+            organizationname,
+            email,
+            district,
+            city,
+            mobile,
+        } = req.body;
 
+        const updatedData = {
+            organizationname,
+            email,
+            district,
+            city,
+            mobile,
+        };
+
+        // Only add profilepic if a new file was uploaded
         if (req.file) {
             updatedData.profilepic = req.file;
         }
@@ -116,6 +133,7 @@ const updateOrganizationDetails = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 
 // Forgot password
 const forgotPassword = async (req, res) => {

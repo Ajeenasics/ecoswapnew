@@ -1,12 +1,47 @@
 import React, { useState } from 'react';
+import axios from "axios"
 
 function Additem() {
   const [showModal, setShowModal] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowModal(true);
-  };
+ 
+
+  const [data,setData] = useState({
+    productname:"",
+    productdesc:"",
+    productprice:"",
+    productquantity:null,
+    productcode:""
+  })
+  const handlechange = (e) => {
+    const { name, value } = e.target;
+    setData(prevData => ({
+        ...prevData,
+        [name]: name === 'productquantity' 
+            ? Number(value)
+            : value
+
+    }));
+    console.log(data)
+};
+const handleSubmit = async(e) => {
+  e.preventDefault();
+  try {
+    
+    const cat = await axios.post("http://localhost:8000/user/saveitems", data)
+    console.log(cat.data)
+    if(cat.data.msg == "Product Data Saved Successfully"){
+        console.log(cat.data.msg)
+        setShowModal(true);
+
+    }
+    
+}
+catch (error) {
+    console.log('error in frontend', error)
+}
+}
+
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -21,9 +56,9 @@ function Additem() {
                   <label htmlFor="username" className="block text-sm font-medium text-gray-900">Product Name</label>
                   <div className="">
                     <div className="flex items-center rounded-md bg-white pl-3 border border-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-                      <input
+                      <input onChange={handlechange} value={data.productname}
                         type="text"
-                        name="username"
+                        name="productname"
                         id="username"
                         className="block w-full py-1.5 px-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
                       />
@@ -34,8 +69,8 @@ function Additem() {
                 <div className="col-span-full">
                   <label htmlFor="about" className="block text-sm font-medium text-gray-900">Product description</label>
                   <div className="mt-2">
-                    <textarea
-                      name="about"
+                    <textarea onChange={handlechange} value={data.productdesc}
+                      name="productdesc"
                       id="about"
                       rows="3"
                       className="block w-full rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
@@ -69,8 +104,8 @@ function Additem() {
                 <div className="sm:col-span-3">
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">Price</label>
                   <input
-                    type="text"
-                    name="first-name"
+                    type="text" onChange={handlechange} value={data.productprice}
+                    name="productprice"
                     id="first-name"
                     className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
                   />
@@ -79,8 +114,8 @@ function Additem() {
                 <div className="sm:col-span-3">
                   <label htmlFor="last-name" className="block text-sm font-medium text-gray-900">Quantity</label>
                   <input
-                    type="text"
-                    name="last-name"
+                    type="number" onChange={handlechange} value={data.productquantity}
+                    name="productquantity"
                     id="last-name"
                     className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
                   />
@@ -89,7 +124,7 @@ function Additem() {
                 <div className="sm:col-span-4">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-900">Product Code</label>
                   <input
-                    id="email"
+                    id="email" onChange={handlechange} value={data.productcode}
                     name="productcode"
                     type="text"
                     className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"

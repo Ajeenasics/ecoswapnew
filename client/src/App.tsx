@@ -25,6 +25,9 @@ import Additem from "./components/User/Additem"
 
 import AdminSidebar from './components/admin/AdminSidebar';
 import OrganizationSidebar from './components/organization/OrganizationSidebar';
+import OrganizationProfileEdit from './components/organization/OrganizationProfileEdit';
+import OrganizationProfile from './components/organization/OrganizationProfile';
+import Pnf from './pages/Pnf';
 import Category from './components/User/Category';
 import Wishlist from './components/User/Wishlist';
 import Viewitem from './components/User/Viewitem';
@@ -32,8 +35,8 @@ import Myorder from './components/User/myorder';
 import RequestsSwap from './components/User/RequestsSwap';
 import RequestsExchange from './components/User/RequestsExchange';
 import RequestsBorrow from './components/User/RequestsBorrow';
-import Inbox from './components/User/Inbox';
-import Complaints from './components/User/Complaints';
+import { Inbox } from 'lucide-react';
+import SubmitComplaint from './components/User/Complaints';
 function App() {
   const url = 'http://localhost:8000';
 
@@ -58,7 +61,7 @@ function App() {
         <Route path="/user/requests/exchange" element={[<UserNavbar />,<RequestsExchange/>]} />
         <Route path="/user/requests/borrow" element={[<UserNavbar />,<RequestsBorrow/>]} />
         <Route path="/user/inbox" element={[<UserNavbar />,<Inbox/>]} />
-        <Route path="/user/complaints" element={[<UserNavbar />,<Complaints/>]} />
+        <Route path="/user/complaints" element={[<UserNavbar />,<SubmitComplaint/>]} />
 
 
         <Route path="/admin/login" element={[<Navbar />, <AdminLogin />, <Footer />]} />
@@ -73,7 +76,9 @@ function App() {
 
           <Route path='/organization/dashboard' element={[<OrganizationHome />, <Footer />]} />
           <Route path="/organization/addproduct" element={[<OrganisationAddProduct />, <Footer />]} />
-
+          <Route path='/organization/profile' element={[<OrganizationProfile url={url} />, <Footer />]} />
+          <Route path="/organization/profileedit" element={[<OrganizationProfileEdit url={url} />, <Footer />]} />
+          <Route path="/*" element={<Pnf/>} />
       </Routes>
     </Router>
   );
