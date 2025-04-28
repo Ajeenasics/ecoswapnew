@@ -2,6 +2,10 @@
     position: relative;
     top: 2rem;
 }
+.heroimg{
+    position: relative;
+    left: 3rem;
+}
 .user-homepage-maintitle{
     position: relative;
     top:3rem;
