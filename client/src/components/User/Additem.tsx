@@ -4,43 +4,87 @@ import axios from "axios"
 function Additem() {
   const [showModal, setShowModal] = useState(false);
 
- 
 
-  const [data,setData] = useState({
-    productname:"",
-    productdesc:"",
-    productprice:"",
-    productquantity:null,
-    productcode:""
+
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+    category: "",
+    price: "",
+    image: null,
+    productquantity: null,
+    productcode: "",
+    addedByType: "users",
+    addedBy: localStorage.getItem("userid")
   })
   const handlechange = (e) => {
     const { name, value } = e.target;
     setData(prevData => ({
-        ...prevData,
-        [name]: name === 'productquantity' 
-            ? Number(value)
-            : value
-
+      ...prevData,
+      [name]: name === 'productquantity' ? Number(value) : value
     }));
-    console.log(data)
-};
-const handleSubmit = async(e) => {
-  e.preventDefault();
-  try {
-    
-    const cat = await axios.post("http://localhost:8000/user/saveitems", data)
-    console.log(cat.data)
-    if(cat.data.msg == "Product Data Saved Successfully"){
-        console.log(cat.data.msg)
-        setShowModal(true);
+  };
+  const validateForm = () => {
+    const {
+      title, description, category, price, productquantity,
+      productcode, image
+    } = data;
 
+    if (
+      !title || !description || !category || !price ||
+      !productquantity || !productcode || !image
+    ) {
+      alert("All fields are required.");
+      return false;
     }
-    
-}
-catch (error) {
-    console.log('error in frontend', error)
-}
-}
+
+    if (isNaN(price) || Number(price) <= 0) {
+      alert("Price must be a valid number greater than 0.");
+      return false;
+    }
+
+    if (isNaN(productquantity) || Number(productquantity) <= 0) {
+      alert("Product quantity must be a valid number greater than 0.");
+      return false;
+    }
+
+    return true;
+  };
+
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  if (!validateForm()) return;
+
+  try {
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("category", data.category);
+    formData.append("price", data.price);
+    formData.append("productquantity", data.productquantity);
+    formData.append("productcode", data.productcode);
+    formData.append("addedByType", data.addedByType);
+    formData.append("addedBy", data.addedBy);
+    formData.append("image", data.image);
+
+    const response = await axios.post("http://localhost:8000/product/add", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    if (response.data.success === true) {
+      setShowModal(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+    }
+  } catch (error) {
+    console.log("error in frontend", error);
+  }
+};
+
 
 
   return (
@@ -56,9 +100,9 @@ catch (error) {
                   <label htmlFor="username" className="block text-sm font-medium text-gray-900">Product Name</label>
                   <div className="">
                     <div className="flex items-center rounded-md bg-white pl-3 border border-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
-                      <input onChange={handlechange} value={data.productname}
+                      <input onChange={handlechange} value={data.title}
                         type="text"
-                        name="productname"
+                        name="title"
                         id="username"
                         className="block w-full py-1.5 px-2 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
                       />
@@ -69,8 +113,8 @@ catch (error) {
                 <div className="col-span-full">
                   <label htmlFor="about" className="block text-sm font-medium text-gray-900">Product description</label>
                   <div className="mt-2">
-                    <textarea onChange={handlechange} value={data.productdesc}
-                      name="productdesc"
+                    <textarea onChange={handlechange} value={data.description}
+                      name="description"
                       id="about"
                       rows="3"
                       className="block w-full rounded-md border border-gray-300 bg-white px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
@@ -88,7 +132,13 @@ catch (error) {
                       <div className="mt-4 flex text-sm text-gray-600">
                         <label htmlFor="file-upload" className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 focus-within:outline-hidden hover:text-indigo-500">
                           <span>Upload a file</span>
-                          <input id="file-upload" name="file-upload" type="file" className="sr-only"></input>
+                          <input
+                            id="file-upload"
+                            name="image"
+                            type="file"
+                            className="sr-only"
+                            onChange={(e) => setData({ ...data, image: e.target.files[0] })}
+                          />
                         </label>
                         <p className="pl-1">or drag and drop</p>
                       </div>
@@ -104,8 +154,17 @@ catch (error) {
                 <div className="sm:col-span-3">
                   <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">Price</label>
                   <input
-                    type="text" onChange={handlechange} value={data.productprice}
-                    name="productprice"
+                    type="text" onChange={handlechange} value={data.price}
+                    name="price"
+                    id="first-name"
+                    className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
+                  />
+                </div>
+                <div className="sm:col-span-3">
+                  <label htmlFor="first-name" className="block text-sm font-medium text-gray-900">category</label>
+                  <input
+                    type="text" onChange={handlechange} value={data.category}
+                    name="category"
                     id="first-name"
                     className="mt-2 block w-full rounded-md border border-gray-300 px-3 py-1.5 text-sm text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-600"
                   />

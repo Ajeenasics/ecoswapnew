@@ -5,7 +5,6 @@ import {
   User,
   ShoppingCart,
   ClipboardList,
-  MessageCircle,
   Menu,
   Leaf,
   LogIn,
@@ -32,7 +31,7 @@ export default function UserNavbar() {
   const navItems = [
     { to: "/user/homepage", label: "Home", icon: <Home className="mr-2 h-5 w-5" /> },
     { to: "/user/profile", label: "Profile", icon: <User className="mr-2 h-5 w-5" /> },
-    { to: "/user/myorder", label: "Orders", icon: <ShoppingCart className="mr-2 h-5 w-5" /> },
+    // { to: "/user/category/WishList", label: "Whishlist", icon: <Heart className="mr-2 h-5 w-5" /> },
   ];
 
   return (
@@ -70,7 +69,7 @@ export default function UserNavbar() {
             >
               <Box className="mr-2 h-5 w-5" />
               <span className="text-green-800 flex items-center">
-                Category <ChevronDown className="ml-1 h-4 w-4" />
+                Dashboard <ChevronDown className="ml-1 h-4 w-4" />
               </span>
             </button>
 
@@ -95,22 +94,38 @@ export default function UserNavbar() {
                       View Item
                     </Link>
                   </li>
-                  <li>
+                   <li>
                     <Link
-                      to="/user/category/Category"
+                      to="/user/myorder"
                       onClick={() => setCategoryOpen(false)}
                       className="block px-4 py-2 text-green-700 hover:bg-green-100"
                     >
-                      Category
+                      My Orders
                     </Link>
-                  </li>
-                  <li>
+                  </li> 
+                   <li>
                     <Link
                       to="/user/category/WishList"
+                      className="block px-4 py-2 text-green-700 hover:bg-green-100"
+                    >
+                     Wishlist
+                    </Link>
+                  </li> 
+                   <li>
+                    <Link
+                      to="/user/viewevents"
+                      className="block px-4 py-2 text-green-700 hover:bg-green-100"
+                    >
+                     Events
+                    </Link>
+                  </li> 
+                  <li>
+                    <Link
+                      to="/user/complaints"
                       onClick={() => setCategoryOpen(false)}
                       className="block px-4 py-2 text-green-700 hover:bg-green-100"
                     >
-                      WishList
+                    Complaints
                     </Link>
                   </li>
                 </ul>
@@ -119,11 +134,29 @@ export default function UserNavbar() {
           </li>
           <li className="md:ml-6">
             <Link
-              to="/user/inbox"
+              to="/user/swap/product"
               className="flex items-center px-3 py-2 text-green-700 hover:bg-green-100 rounded-lg"
             >
-              <Mail className="mr-2 h-5 w-5 text-green-700" />
-              <span className="text-green-800">Inbox</span>
+              <ShoppingCart className="mr-2 h-5 w-5 text-green-700" />
+              <span className="text-green-800">SwapItem</span>
+            </Link>
+          </li>
+          <li className="md:ml-6">
+            <Link
+              to="/userchat"
+              className="flex items-center px-3 py-2 text-green-700 hover:bg-green-100 rounded-lg"
+            >
+              <ShoppingCart className="mr-2 h-5 w-5 text-green-700" />
+              <span className="text-green-800">Chat</span>
+            </Link>
+          </li>
+           <li className="md:ml-6">
+            <Link
+              to="/user/product"
+              className="flex items-center px-3 py-2 text-green-700 hover:bg-green-100 rounded-lg"
+            >
+              <ShoppingCart className="mr-2 h-5 w-5 text-green-700" />
+              <span className="text-green-800"> Products</span>
             </Link>
           </li>
 
@@ -151,7 +184,7 @@ export default function UserNavbar() {
                       Swap request
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     <Link
                       to="/user/requests/exchange"
                       onClick={() => setRequestsOpen(false)}
@@ -159,14 +192,14 @@ export default function UserNavbar() {
                     >
                       Exchange request
                     </Link>
-                  </li>
+                  </li> */}
                   <li>
                     <Link
-                      to="/user/requests/borrow"
+                      to="/user/swap/acceptedproduct"
                       onClick={() => setRequestsOpen(false)}
                       className="block px-4 py-2 text-green-700 hover:bg-green-100"
                     >
-                      Borrow request
+                      Accepted request
                     </Link>
                   </li>
                 </ul>
@@ -175,7 +208,7 @@ export default function UserNavbar() {
           </li>
 
 
-          <li className="md:ml-6">
+          {/* <li className="md:ml-6">
             <Link
               to="/user/complaints"
               className="flex items-center px-3 py-2 text-green-700 hover:bg-green-100 rounded-lg"
@@ -183,7 +216,7 @@ export default function UserNavbar() {
               <MessageCircle className="mr-2 h-5 w-5" />
               <span className="text-green-800">Complaints</span>
             </Link>
-          </li>
+          </li> */}
 
           <li className="md:ml-6">
             <button

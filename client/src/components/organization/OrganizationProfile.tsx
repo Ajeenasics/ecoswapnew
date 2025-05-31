@@ -5,10 +5,10 @@ import axios from 'axios';
 import OrganizationSidebar from './OrganizationSidebar';
 
 export default function OrganizationProfile({url}) {
-  const [user, setUser] = useState(null);
+ const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchUser = async () => {
+   const fetchUser = async () => {
       try {
         const userid = localStorage.getItem("orgid"); // or however you store user ID
         const res = await axios.get(`http://localhost:8000/vieworganization/${userid}`);
@@ -20,17 +20,24 @@ export default function OrganizationProfile({url}) {
       }
     };
 
+  useEffect(() => {
+   
     fetchUser();
+    fetchProducts()
   }, []);
 
-  const userStats = [
-    { label: 'Items Listed', value: user?.itemsListed || '0' },
-    { label: 'Successful Swaps', value: user?.swapsCompleted || '0' },
-    { label: 'Rating', value: user?.rating || 'N/A' },
-    { label: 'Member Since', value: user?.createdAt?.slice(0, 10) || 'N/A' },
-  ];
+  const fetchProducts = async () => {
+            const userid = localStorage.getItem("orgid"); // or however you store user ID
 
-  const listedItems = user?.listedItems || [];
+    try {
+      const res = await axios.get(`http://localhost:8000/ourproduct/${userid}`);
+      if (res.data.success) {
+        setProducts(res.data.data);
+      }
+    } catch (err) {
+      console.error("Error fetching products:", err);
+    }
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -39,7 +46,7 @@ export default function OrganizationProfile({url}) {
             <OrganizationSidebar/>
           </div>
     <div className="min-h-screen bg-gray">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Profile Header */}
         <div className="bg-white rounded-lg shadow overflow-hidden mb-6">
           <div className="h-32 bg-green-600"></div>
@@ -73,18 +80,10 @@ export default function OrganizationProfile({url}) {
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          {userStats.map((stat, index) => (
-            <div key={index} className="bg-white p-4 rounded-lg shadow text-center">
-              <p className="text-gray-600">{stat.label}</p>
-              <p className="text-2xl font-bold text-green-600">{stat.value}</p>
-            </div>
-          ))}
-        </div>
+     
 
         {/* Listed Items */}
-        <div className="bg-white rounded-lg shadow overflow-hidden">
+        {/* <div className="bg-white rounded-lg shadow overflow-hidden">
           <div className="p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-semibold">Listed Items</h2>
@@ -96,8 +95,8 @@ export default function OrganizationProfile({url}) {
               </Link>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {listedItems.length > 0 ? (
-                listedItems.map((item, index) => (
+              {products.length > 0 ? (
+                products.map((item, index) => (
                   <div key={index} className="border rounded-lg overflow-hidden">
                     <img
                       src={item.image}
@@ -120,7 +119,7 @@ export default function OrganizationProfile({url}) {
               )}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
     </div>
